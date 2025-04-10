@@ -1,6 +1,58 @@
 # 202130103 김민서
+ ### 6주차
+ ### props를 통해 데이터 전달하기
+ - React의 componet architecture 사용해서 재사용할 수 있는 component를 만들고 지저분하고 중복된 코드를 삭제
+ - Board component를 만들고, Square component의 내용를 복사합니다
+ - Square componet의 button을 하나만 남기고 모두 삭세합니다.
+ - App에서 호출하는 component를 Square에서 Board로 바꿔줍니다.
+ - 정상적으로 출력이 되는지 확인
 
-<<<<<<< HEAD
+ ---
+ - 여기까지는 숫자 1만 나오게 되는중입니다.
+ - 이 문제를 해결하기 위해서는 props를 사용하여 각 사각형이 가져야 할 값을 부모 component(Board)에서 자식 component(Square)로 전달 합니다.
+ - component를 호출하는 쪽이 부모 component 입니다.
+ 
+ ### ### props를 통해 데이터 전달하기2
+ - Square component를 value prop을 전달 받을 수 있도록 수정합니다.
+ ``` 
+ function Square({ value }) {
+  return <button className="square">1</button>;
+}
+```
+- 
+
+ ### 사용자와 상호작용하는 컴포넌트 만들기
+
+ ### component 분리하기
+
+ ### 5주차 
+ ### 화면 업데이트 하기
+ - useState로부터 현재의 state를 저장할 수 있는 변수이니 count와 이를 업데이트 할 수 있는 SetCount를 얻을 수 있습니다.
+ ### Hoook 사용하기
+ - use로 시작하는 함수를 Hook이라고 합니다.
+ - useState는 React에서 제공하는 내장 Hook입니다.
+ ### Hooks의 사용 규칙
+ 1. 최상위에서만 호출해야한다.
+ - check point = if, for while 등의 블록 내부에서 Hooks를 호출하면 안됩니다.
+ - check point = 함수의 조건문 내부에서 호출하면 실행 순서가 달라질 수 있기 떄문입니다.
+ ### Hooks의 사용 규칙
+ 1. readering 순서를 보장 하기 위해
+ 2. 불필요한 사이드 이펙트 방지
+ ### 왜 function형 컴포넌트에서만 Hook를 사용할 까?
+ - Class형 component는 lifecycle 함수를 통해서 상태 관리를 했습니다.
+ ### function component vs class conponent
+ - 왜 요즘은 function형 component를 주로 사용할까 라는 의문을 갖는 경우가 많습니다.
+ - React 초장기에는 함수형 컴포넌트는 존재했지만, 단순히 props를 받아 UI를 반환하는 역할만 가능했다.
+ -
+ -
+ ### component 간 데이터 공유
+ - 공식 문서의 경유 Mybutoon, MyApp의 js 파일을 수정하면서 설명하고 있어서 이전 상태를 확인하기 어렵다.
+ - 물론 commit을 꼼꼼히 commit을 해두면 ckeckout 을 통해서 확인이 가능합니다.(단 이경우 ckeckout을 반복해야 하기 때문에 확인하는데 불편합니다.)
+
+- randering'
+### 보드 만들기
+- fragment Tag나 division Tag를 사용해서 wrapping 해 주기
+- bu
 ## 2025.03.27 4주차(실습 시작)
 
 ### 오늘의 학습 내용
@@ -49,11 +101,9 @@
 
 ## React 의존성 관리
 
-=======
 ## 2025.03.20 3주차
 
 ## React 의존성 관리
->>>>>>> 16a45a503fda738a4bd95ef955f74e647e4d1792
 - src/ - 프로젝트 주요 코드가 위치하는 디렉토리
 - src/App.js - 메인 component로 필요한 sub component를 모아서 관리, 출력을 위해서 index.js로 전달됨
 - src/App.css - App.js에 적용되는 스타일을 정의하는 스타일 파일
