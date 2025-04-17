@@ -1,4 +1,105 @@
 # 202130103 김민서
+### 7주차(2025.04.17)
+### state 끌어올리기
+- handClick 함수는 javascript의 slice() 배열 메서드를 사용하여 squares 배열 메서드를 사용하여 squares 배열의 사본인 nextSquares 생성합니다.
+- 그 다음 handleClick 함수는 nextSquares 배열의 첫 번째 Squares(index [0])에 X를 추가하여 업데이트 
+- setSquares 함수를 호출하면 React는 컴포넌트(Board)와 그 하위 컴포넌트(보드를 구성하는 Square 컴포넌트)가 다시 랜더링 됩니다.
+- 그러면 squares의 static를 사용하는 컴포넌트(board)와 그하위 컴포넌트(보드를 구성하는 Square 컴포넌트) 가 다시 랜더링 됩니다.<br>
+** 중요 ** 
+- 이 설명은 문서의 코드 중 board가 Square를 포함하고 있음을 전제
+
+### #Closure의 개념
+- 클로저의 핵심은 스코프를 이용하여 변수의 접근 범위를 '폐쇄'하는 것이 있다.
+- 외부 함수 스코프에 
+- 사용자 정의 컴포넌트, 예를 들어 square의 경우 이름은 사용자가 원하는 대로 지을수 있음
+
+### State 끌어올리기
+- Square의 onSquareClick prop나 Board의 handleClick
+
+### 불변성이 왜 중요할까요
+- 데이터의 변경 여부를 저렴한 비용으로 판단할 수 있다.
+
+### 교대로 두기 -1(차례를 지키다)
+- 현재까지 작성한 틱택토 게임에서 가장 큰 결함인 "0"을 보드에 표시할 수 없다는 문제를 수정할 차례입니다.
+1. 첫번째 선수가 두는 말을 "X"로 설정합니다. 이제 Board 컴포넌트에 또 다른 state를 추가하여 추적해 보겠습니다.
+-  X와 0가 번갈아 한 번씩 두어야 하기 때문에 X가 두었는지 아닌지 현재의 상태를 보관하면 됩니다.
+즉, X의 차례면 true, 0의 차례면 false 상태로 기억하면 됩니다.
+```js
+Function Board() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  // ...
+}
+```
+- 완성된 코드는 다음과 같습니다.
+```js
+export default function Board() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  function handleClick(i) {
+    const nextSquares = squares.slice();
+    if (xIsNext) {
+      nextSquares[i] = "X";
+    } else {
+      nextSquares[i] = "O";
+    }
+    setSquares(nextSquares);
+    setXIsNext(!xIsNext);
+  }
+
+  return (
+    //...
+  );
+}
+```
+### 교대로 두기 - 2
+- 이제 다른 사각형을 클릭하면 정상적으로 X와 0가 번갈아 표시합니다.
+- 지금은 X의 0로 사각형을 표시할 때 먼저 해당 사각형에 이미 x 또는 0 값이 있는지 확인하고 있지 않습니다.
+- square가 이미 채워져 있는 경우 Board의 state를 업데이트 하기 전에 handClick 함수에서 초기에 return 하겠습니다.
+```js
+function handleClick(i) {
+  if (squares[i]) {
+    return;
+  }
+  const nextSquares = squares.slice();
+  //...
+}
+```
+### 우승자 선언
+- 이제 플레이어들이 차례를 지낼수 있게 되었으니, 게임이 승리하고 더이상 차례가 없을 때를 표시해야합니다.
+- 이를 위해 calculateWinner 9개의 사각형 배열을 받아서 승자를 확인하고, 필요에 따라 'X', 'O', 또는 null을 반환하는 도우미 함수를 추가합니다.
+```js
+export default function Board() {
+  //...
+}
+
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
+```
+### 구조 분해 할당(Destrcturing Assignment)
+- 비구조 할당, 구조화 할당이라고도 번역되지만 구조 분해 할당을 많이 사용함
+- 구조 분해 할당은 배열이아 객체의 구조를 해체하여 내부 값을 개별 변수에 쉽게 할당하는 변수 입니다.
+### 승자 결정하기 -1
+
  ### 6주차
  ### props를 통해 데이터 전달하기
  - React의 componet architecture 사용해서 재사용할 수 있는 component를 만들고 지저분하고 중복된 코드를 삭제
@@ -182,7 +283,7 @@
     - 서버에서 데이터를 가져오는 동안에도 HTML을 스트리밍을 시작할수 있다.
     - JavaScript 코드가 로드되기 전에 콘텐츠르르 점진적으로 채울수 있다.
     - 클라이언트 측에서는 표준 웹 API를 사용해서, 랜더링 도중에도 UI를 반응하도록 할 수 있습니다.
->>>>>>> 16a45a503fda738a4bd95ef955f74e647e4d1792
+
 # 2025.03.13(2주차)
 
 ### Node.js 어디에 활용 되는가?
@@ -207,4 +308,4 @@ React 공식 사이트에서 기초로 사용
 react는 codesandbox.io에서 이해를 도와줌,
 =======
 react는 codesandbox.io에서 이해를 도와줌, 
->>>>>>> 16a45a503fda738a4bd95ef955f74e647e4d1792
+
