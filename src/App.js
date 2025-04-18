@@ -1,21 +1,39 @@
-import Myb from "./MyButton";
-import { Button1, Button2, Button3 } from "./ButtonLib";
-import Ap from "./AboutPage";
-import Pf from "./Profile";
-import "./App.css";
-import SL from "./ShoppingList";
-export default function App() {
+export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const currentSquares = history[history.length - 1];
+
+  function handlePlay(nextSquares) {
+    setHistory([...history, nextSquares]);
+    setXIsNext(!xIsNext);
+  }
+
+  function jumpTo(nextMove) {
+    // TODO
+  }
+
+  const moves = history.map((squares, move) => {
+    let description;
+    if (move > 0) {
+      description = 'Go to move #' + move;
+    } else {
+      description = 'Go to game start';
+    }
+    return (
+      <li>
+        <button onClick={() => jumpTo(move)}>{description}</button>
+      </li>
+    );
+  });
+
   return (
-    <div className="wrapper">
-      <h1>Hello React</h1>
-      <Myb />
-      <Ap />
-      <br />
-      <Button1 /> &nbsp;
-      <Button2 /> &nbsp;
-      <Button3 />
-      <Pf />
-      <SL />
+    <div className="game">
+      <div className="game-board">
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+      </div>
+      <div className="game-info">
+        <ol>{moves}</ol>
+      </div>
     </div>
   );
 }

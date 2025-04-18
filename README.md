@@ -1,4 +1,170 @@
 # 202130103 김민서
+### 8주차(2025.04.18/5.1일 근로자의 날 보강)
+### 한번 더 state 끌어올리기
+- 다음 플레이어와 플레이 기록을 추적하기 위해 Game 컴포너느에 몇개의 state를 추가하세요.
+```js
+export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  // ...
+```
+- 현재 플레이에 대한 square를 랜더링하면 history에서 마지막 squares의 배열을 읽어야 합니다.
+- 랜더링 중에 계산 할 수 있는 충분한 정보가 이미 있으므로 useState는 필요하지 않습니다.
+```js
+export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const currentSquares = history[history.length - 1];
+  // ...
+```
+- Board 컴포넌트가 props에 의해 완전히 제어되도록 만들겠습니다.
+- Board 컴포넌트가 xIsNext, squares, onPlay 함수를 props로 받을 수 있도록 변경합니다.
+- 다음으로 Board 함수에서 useState를 호출한느 처음 두 줄을 제거하겠습니다.
+```js
+function Board({ xIsNext, squares, onPlay }) {
+  function handleClick(i) {
+    //...
+  }
+  // ...
+}
+```
+-  이제 Board 컴포넌트의 handleClick에 있는 setSquares 및 setXIsNext 호출을 새로운 onPlay 함수에 대한 단일 호출로 대체함으로써 사용자가 사각형을 클릭할 때 Game 컴포넌트가 Board를 업데이트 할 수 있습니다.
+- 업데이트된 squares 배열을 새 히스토리 항목으로 추가하여 history 업데이트 해야 하고, Board에서 했던 것처럼 xIsNext 값을 반전 시켜야함
+```js
+export default function Game() {
+  //...
+  function handlePlay(nextSquares) {
+    setHistory([...history, nextSquares]);
+    setXIsNext(!xIsNext);
+  }
+  //...
+}
+```
+- hisotroy 전개 구문으 사용하면 "history의 모든 항목 열거"로 읽을 수 있습니다.
+- 이 시점에서 state를 Game 컴포넌트로 옮겼으므로 리펙터링 전과 마찬가지로 UI가 왖언히 작동해야함
+### 과거 움직임 보여주기
+- 이제 틱택토 게임의 히스토리를 기록하기 때문에, 플레이어에게 과거 플레이 목록을 보야줄 수 있습니다.
+-React에서 여러 엘리먼트를 런더링하려면 React 엘리먼트 배열을 사용할 수 있습니다.
+- JavaScript에서 한 배열을 다른 배열로 변환하려면 배열 map 메서드를 사용하면 됩니다.
+```js
+[1, 2, 3].map((x) => x * 2) // [2, 4, 6]
+```
+1. 플레이 history 배열을 화면의 버튼을 나타내는 React 엘리먼트로 변환 합니다.
+2. 과거의 플레이로 "점프" 할 수 있는 버튼 목록을 표시하세요.
+3. 이 것을 구현하기 위해서 Game 컴포넌트에서 history를 map을 이용해보겠습니다.
+
+```js
+export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const currentSquares = history[history.length - 1];
+
+  function handlePlay(nextSquares) {
+    setHistory([...history, nextSquares]);
+    setXIsNext(!xIsNext);
+  }
+
+  function jumpTo(nextMove) {
+    // TODO
+  }
+
+  const moves = history.map((squares, move) => {
+    let description; ㅁ ㅍ
+    if (move > 0) {
+      description = 'Go to move #' + move;
+    } else {
+      description = 'Go to game start';
+    }
+    return (
+      <li>
+        <button onClick={() => jumpTo(move)}>{description}</button>
+      </li>
+    );
+  });
+
+  return (
+    <div className="game">
+      <div className="game-board">
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+      </div>
+      <div className="game-info">
+        <ol>{moves}</ol>
+      </div>
+    </div>
+  );
+}
+
+```
+
+## 문서의 내용 이해하기 어렵게 번역되어 있어 다시 정리
+- map 기본 구문은 map(callbackFn)혹은 map(callbackFn,thisArg) 입니다. 
+-thisArgs는 내부에서 this로 사용할 값을 지정하는데 화살표 함수에서는 생략된다.
+- map함수는 history 각각의 요소 index를 순회하면서 squares 추출합니다. 각 요소는 { }안의 살향뮨울 살행하면서 버튼을 생성합니다.
+- 이렇게 생성된 버튼은 moves 객체에 다시 저장됩니다.
+- move 최종 rendering에 사용됩니다.
+
+### key 선택하기
+- 만약 데이터베이스에서 데이터를 불러와서 사용한다면  Alexa, Ben, Claudia의 데이터베이스 ID를 key로 사용할 수 있습니다.
+```js
+<li key={user.id}>
+  {user.name}: {user.taskCount} tasks left
+</li>
+```
+- 리스트가 다시 렌더링 되면 React는 각 리스트 항목의 key를 가져와서 이전 리스트의 항목에서 일치하는 key를 탐색합니다.
+### 시간 여행 구현하기 - 1
+- 틱택토 게임의 기록에서 과거의 각 플레이에는 해당 플레이의 일련번호인 고유 ID가 있습니다.
+- 플레이는 중간에 순서를 바꾸거나 삭제하거나 삽입할 수 없기 때문에 플레이 인덱스를  key로 사용하는 것이 안전합니다.
+
+1. 
+```js
+const moves = history.map((squares, move) => {
+  //...
+  return (
+    <li key={move}>
+      <button onClick={() => jumpTo(move)}>{description}</button>
+    </li>
+  );
+});
+```
+### 시간여행 구현하기 - 2
+- jumoTo 구현하기 전에 사용자가 현재 어떤 단계를 보고 있는지를 추적할 수 있는 Game컴포넌트의 state 하나 더 필요합니다.
+
+1. 이를 위해 초기값이 0인 currentMove 라는 새 state 변수를 정의
+```js
+export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [currentMove, setCurrentMove] = useState(0);
+  const currentSquares = history[history.length - 1];
+  //...
+}
+```
+2.Game 내부의 jumpTo 함수를 업데이트 하여 해당 currentMove를 업데이트 하세요
+
+3. "시간을 거술러 올라가서" 그 시점에서 새로운 이동을 하는 경우 해당 시점까지 히스토리만 유지해야 합니다. 
+```js
+function handlePlay(nextSquares) {
+  const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+  setHistory(nextHistory);
+  setCurrentMove(nextHistory.length - 1);
+  setXIsNext(!xIsNext);
+}
+
+```
+4. 항상 마지막 동작을 랜더링하는 대신 현재 선택한 동작을 랜더링하도록 Game 컴포넌트를 수정하겠습니다.
+```js
+export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [currentMove, setCurrentMove] = useState(0);
+  const currentSquares = history[currentMove];
+
+  // ...
+}
+```
+5. 게임 히스토리의 특정 단계를 클릭하면 틱택토 보드가 즉시 업데이트 되어 아래 사진과 같이 해당 단계가 발생한 시점의 보드 모양이 표시 됩니다.
+![alt text](image.png)
+
 ### 7주차(2025.04.17)
 ### state 끌어올리기
 - handClick 함수는 javascript의 slice() 배열 메서드를 사용하여 squares 배열 메서드를 사용하여 squares 배열의 사본인 nextSquares 생성합니다.
@@ -167,6 +333,22 @@ function calculateWinner(squares) {
 
 - MyApp이라는 함수형 component를 생성
 - 먼저 무엇부터 해야할지 생각해 보세요
+
+### 컴포넌트 생성 및 중첩하기
+- React 앱은 컴포넌트로 구성됩니다. **컴포넌트**는 고유한 로직과 모양을 UI의 일부입니다. 
+### UI 란?
+- 기계와 사람과의 의사소통을 위해 영구적, 일시적인 접근 가능하게 해주는 물리적 가상적 매개체
+- (*매개체 : 중간에서 어떤 일을 이어주는 것)
+- 컴포넌트는 버튼만큼 작을 수도 있고 전체 페이지만큼 클 수도 있습니다.
+- React 컴포넌트는 마크업을 반환하는 자바스크립트 함수
+```js
+function Mybutton(){
+  return (
+    <button>I'm a button</button>
+  )
+}
+```
+
 
 ### 3. JSX로 마크업 작성하기
 
