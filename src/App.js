@@ -1,39 +1,99 @@
-export default function Game() {
-  const [xIsNext, setXIsNext] = useState(true);
-  const [history, setHistory] = useState([Array(9).fill(null)]);
-  const currentSquares = history[history.length - 1];
+//export default는 코드에 하나만 존재할 수 있다.
+export default function App(){
+  // 맨 아래 있는 PRODUCTS를 불러오기
+  return(
+    <>
+      <FilterableProductTable products={PRODUCTS}/>
+    </>
+)
+}
+function ProductCategoryRow({ category }) {
+  return (
+    <tr>
+      <th colSpan="2">
+        {category}
+      </th>
+    </tr>
+  );
+}
 
-  function handlePlay(nextSquares) {
-    setHistory([...history, nextSquares]);
-    setXIsNext(!xIsNext);
-  }
+function ProductRow({ product }) {
+  const name = product.stocked ? product.name :
+    <span style={{ color: 'red' }}>
+      {product.name}
+    </span>;
 
-  function jumpTo(nextMove) {
-    // TODO
-  }
+  return (
+    <tr>
+      <td>{name}</td>
+      <td>{product.price}</td>
+    </tr>
+  );
+}
 
-  const moves = history.map((squares, move) => {
-    let description;
-    if (move > 0) {
-      description = 'Go to move #' + move;
-    } else {
-      description = 'Go to game start';
+function ProductTable({ products }) {
+  const rows = [];
+  let lastCategory = null;
+
+  products.forEach((product) => {
+    if (product.category !== lastCategory) {
+      rows.push(
+        <ProductCategoryRow
+          category={product.category}
+          //key props를 사용하여 데이터 독립성을 보장하기 위해 사용하였음
+          key={product.category} />
+      );
     }
-    return (
-      <li>
-        <button onClick={() => jumpTo(move)}>{description}</button>
-      </li>
+    rows.push(
+      <ProductRow
+        product={product}
+        //key props를 사용하여 데이터 독립성을 보장하기 위해 사용하였음
+        key={product.name} />
     );
+    lastCategory = product.category;
   });
 
   return (
-    <div className="game">
-      <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
-      </div>
-      <div className="game-info">
-        <ol>{moves}</ol>
-      </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>{rows}</tbody>
+    </table>
+  );
+}
+
+function SearchBar() {
+  return (
+    <form>
+      <input type="text" placeholder="Search..." />
+      <label>
+        <input type="checkbox" />
+        {' '}
+        Only show products in stock
+      </label>
+    </form>
+  );
+}
+
+function FilterableProductTable({ products }) {
+  return (
+    <div>
+      <SearchBar />
+      <ProductTable products={products} />
     </div>
   );
 }
+
+const PRODUCTS = [
+  {category: "Fruits", price: "$1", stocked: true, name: "Apple"},
+  {category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit"},
+  {category: "Fruits", price: "$2", stocked: false, name: "Passionfruit"},
+  {category: "Vegetables", price: "$2", stocked: true, name: "Spinach"},
+  {category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin"},
+  {category: "Vegetables", price: "$1", stocked: true, name: "Peas"}
+];
+
