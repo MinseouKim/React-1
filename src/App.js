@@ -1,12 +1,24 @@
-//export default는 코드에 하나만 존재할 수 있다.
-export default function App(){
-  // 맨 아래 있는 PRODUCTS를 불러오기
-  return(
-    <>
-      <FilterableProductTable products={PRODUCTS}/>
-    </>
-)
+import { useState } from 'react';
+
+function FilterableProductTable({ products }) {
+  const [filterText, setFilterText] = useState('');
+  const [inStockOnly, setInStockOnly] = useState(false);
+
+  return (
+    <div>
+      <SearchBar
+        filterText={filterText}
+        inStockOnly={inStockOnly}
+        onFilterTextChange={setFilterText}
+        onInStockOnlyChange={setInStockOnly} />
+      <ProductTable
+        products={products}
+        filterText={filterText}
+        inStockOnly={inStockOnly} />
+    </div>
+  );
 }
+
 function ProductCategoryRow({ category }) {
   return (
     <tr>
@@ -31,23 +43,31 @@ function ProductRow({ product }) {
   );
 }
 
-function ProductTable({ products }) {
+function ProductTable({ products, filterText, inStockOnly }) {
   const rows = [];
   let lastCategory = null;
 
   products.forEach((product) => {
+    if (
+      product.name.toLowerCase().indexOf(
+        filterText.toLowerCase()
+      ) === -1
+    ) {
+      return;
+    }
+    if (inStockOnly && !product.stocked) {
+      return;
+    }
     if (product.category !== lastCategory) {
       rows.push(
         <ProductCategoryRow
           category={product.category}
-          //key props를 사용하여 데이터 독립성을 보장하기 위해 사용하였음
           key={product.category} />
       );
     }
     rows.push(
       <ProductRow
         product={product}
-        //key props를 사용하여 데이터 독립성을 보장하기 위해 사용하였음
         key={product.name} />
     );
     lastCategory = product.category;
@@ -66,25 +86,27 @@ function ProductTable({ products }) {
   );
 }
 
-function SearchBar() {
+function SearchBar({
+  filterText,
+  inStockOnly,
+  onFilterTextChange,
+  onInStockOnlyChange
+}) {
   return (
     <form>
-      <input type="text" placeholder="Search..." />
+      <input
+        type="text"
+        value={filterText} placeholder="Search..."
+        onChange={(e) => onFilterTextChange(e.target.value)} />
       <label>
-        <input type="checkbox" />
+         <input
+          type="checkbox"
+          checked={inStockOnly}
+          onChange={(e) => onInStockOnlyChange(e.target.checked)} />
         {' '}
         Only show products in stock
       </label>
     </form>
-  );
-}
-
-function FilterableProductTable({ products }) {
-  return (
-    <div>
-      <SearchBar />
-      <ProductTable products={products} />
-    </div>
   );
 }
 
@@ -97,3 +119,6 @@ const PRODUCTS = [
   {category: "Vegetables", price: "$1", stocked: true, name: "Peas"}
 ];
 
+export default function App() {
+  return <FilterableProductTable products={PRODUCTS} />;
+}
