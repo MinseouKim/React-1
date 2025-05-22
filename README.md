@@ -1,5 +1,71 @@
 # 202130103 김민서
-### 11주차(205.06.13)
+### 12주차(2025.05.20)
+
+### 설치하기(상급 난이도)
+1. 프로젝트 도입(Installation)
+    1. React를 맛보기로 접해보거나, 간단한 HTML에 상호작용을 추가하기
+2. React 시도하기
+    1. Hello, world 출력해보기
+    
+    ```jsx
+    2. function Greeting({name}) {
+        
+        return <h1> Hello, {name}</h1>
+    
+        
+        export defalt function App(){
+        
+        return <Greeting name = “world” />
+        
+        }
+    ```
+    
+3. 로컬 환경에서 React 시도하기
+4. 새로운 React 앱 만들기
+
+[새로운 React 앱 만들기 – React](https://ko.react.dev/learn/creating-a-react-app)
+
+4-1. 새로운 React 앱 만들기
+
+1. Next.js(앱 라우터)
+    1. React 아키택처를 최대한 활용하여 풀스택 React를 활성화하는 React 프레임 워크입니다. 
+    
+    ```jsx
+    npx create-next-app@latest
+    ```
+    b. Next.js는 Vercel에서 유지 관리합니다.
+    
+2. React Router(v7)
+    1. React Router는 React에서 가장 인기있는 routing library이며 Vite와 함께 사용하면 full-steck React FrameWork를 만들수 있습니다 
+    
+    ```jsx
+    npx create-react-router@latest
+    ```
+    
+     b. React Router는 Shopify에서 유지 관리 합니다.
+    
+
+5. 처음부터 React 앱 만들기
+
+[처음부터 React 앱 만들기 – React](https://ko.react.dev/learn/build-a-react-app-from-scratch)
+
+1. 기존 프로젝트에 React 추가하기
+
+[기존 프로젝트에 React 추가하기 – React](https://ko.react.dev/learn/add-react-to-an-existing-project)
+
+1. ***Important***
+    1. create React App을 사용해야 하나요?
+    
+    answer : No. create React App은 더 이상 사용되지 않습니다.
+    
+
+4-
+#### 목차 
+1. 새로운 React 프로젝트를 시작하는 방법
+2. 기존 프로젝트에 React를 추가하는 방법
+3. 에디터를 설정하는 방법
+4. React 개발자 도구를 설치하는 방법
+### 11주차(2025.05.13)
 <h4>Step3 : React로 정적인 버전 구현하기</h4>
 
 - 정적인 데이터 :  훅, State로 관리 하는 것
