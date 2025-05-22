@@ -49,6 +49,12 @@
 
 [처음부터 React 앱 만들기 – React](https://ko.react.dev/learn/build-a-react-app-from-scratch)
 
+1. vite, parcel 또는 과 같은 빌드 도구를 설치하는 것
+2. Vite는 모던 웹 프로젝트에서 빠르고 간결한 개발 환경을 제공하는 것을 목표로 하는 빌도 도구이다.
+
+```jsx
+npm create vite@latest my-app -- --temlate react
+```
 1. 기존 프로젝트에 React 추가하기
 
 [기존 프로젝트에 React 추가하기 – React](https://ko.react.dev/learn/add-react-to-an-existing-project)
