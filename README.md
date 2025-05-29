@@ -1,5 +1,96 @@
 # 202130103 김민서
-### 12주차(2025.05.20)
+### 13주차(2025.05.29)
+### 처음부터 React 앱 만들기
+
+- 앱의 기존 프레임워크로는 충족하기 어려운 제약조건이 있는 경우
+- 직접 프레임워크를 만드는 것을 선호하는 경우
+- React 앱의 기본을 배우고 싶은 경우
+
+**프레임워크 사용을 고려하세요**
+**프레임 워크란?** 
+
+frame(틀)+ work(일하다) = framework 틀을 가지고 일하다
+
+### 1단계 : 빌드 도구 설치
+
+- 첫번째 단계는  vite, parcel, 또는 와 같은 빌드 도구를 설치하는 것입니다.
+    - Vite는 모던 웹 프로젝트에서 빠르고 간결한 개발 환경을 제공하는 것을 목표로 하는 빌드 도구이다.
+    - Parcel은 뛰어난 기본 개발 경험과 확장가능한 아키택처를 결합하여 프로젝트 시작 단계에서 대규모 프로덕션 애플리케이션으로 발전시킬 수 있습니다.
+    - Rsbuild는 React 애플리케이션 개발에 원활한 환경을 제공하는 Rspack 기반 빌드 도구입니다.
+
+**Important**
+
+- React Navtive용 Metro
+    - React Native
+
+### 2단계 : 공통 애플리케이션 패턴 구축
+
+- 위의 나열된 빌드 도구는 클라이언트 전용 단일 페이지 앱(SPA) 시작하지만 라우팅, 데이터 가져오기, 스타일링 같은 일반적인 기능에 대한 추가 솔루션은 포함하지 않습니다
+    
+    ### 라우팅
+    
+    - 라우팅은 사용자가 특정 URL을 방문할 때 표시할 콘텐츠나 페이지를 결정합니다.
+    - 앱의 여러 부분에 URL을 매핑하려면 라우터를 설정해야 합니다. 또한 중첩된 경로, 경로 매개변수, 쿼리 매개변수도 처리해야 합니다.
+
+### 데이터 가져오기
+
+- 서버나 다른 데이터 소스에서 데이터를 가져오는 것은 대부분의 애플리케이션에서 핵심적인 부분입니다.
+- 주의사항 : 컴포넌트에서 직접 데이터를 가져오면 네트워크 요청 폭주로 인해 로딩 시간이 느려질 수 있으므로, 라우터 로더나 서버에서 데이터를 미리 가져오는 것이 좋습니다!
+
+### 코드 분할
+
+- 코드 분할은 앱을 필요에 따라 로드할 수 있는 작은 묶음으로 나누는 프로세스입니다.
+- 앱의 코드 크기는 새로운 기능과 추가 종속성이 있을 때마다 증가합니다.
+- 앱 전체의 코드를 전송해야 사용하기 때문에 앱 로드 속도가 느려질 수 있습니다.
+- 캐싱, 기능/종속성 축소, 일부 코드를 서버에서 실행되도록 이동하면 로드 속도 저하를 완화하는 데 도움이 되지만, 과도하게 사용하면 기능이 저하될 수 있는 불완전한 해결책입니다.
+
+### 애플리케이션 성능 개선
+
+- **단일 페이지 앱(SPA)은** 단일 HTML 페이지를 로드하고 사용자가 앱과 상호작용할 때 페이지를 동적으로 업데이트합니다. SPA는 시작하기는 쉽지만 초기 로드 시간이 느릴 수 있습니다. SPA는 대부분의 빌드 도구에서 기본 아키텍처로 사용됩니다.
+
+- **스트리밍 서버 측 렌더링(SSR)은** 서버에서 페이지를 렌더링하고 완전히 렌더링된 페이지를 클라이언트로 전송합니다. SSR은 성능을 향상시킬 수 있지만, 단일 페이지 앱보다 설정 및 유지 관리가 더 복잡할 수 있습니다. 스트리밍 기능이 추가되면 SSR은 설정 및 유지 관리가 매우 복잡해질 수 있습니다. [Vite의 SSR 가이드를](https://vite.dev/guide/ssr) 참조하세요 .
+
+- **정적 사이트 생성(SSG)은** 빌드 시점에 앱의 정적 HTML 파일을 생성합니다. SSG는 성능을 향상시킬 수 있지만, 서버 측 렌더링보다 설정 및 유지 관리가 더 복잡할 수 있습니다. [Vite의 SSG 가이드를](https://vite.dev/guide/ssr.html#pre-rendering-ssg) 참조하세요 .
+- **React Server Components(RSC)를** 사용하면 빌드 타임, 서버 전용, 인터랙티브 컴포넌트를 단일 React 트리에 혼합할 수 있습니다. RSC는 성능을 향상시킬 수 있지만, 현재 설정 및 유지 관리에 대한 전문 지식이 필요합니다. [Parcel의 RSC 예시를](https://github.com/parcel-bundler/rsc-examples) 참조하세요 .
+
+## 기존 프로젝트에 React 추가하기
+
+- 기존 프로젝트에 상호작용 요소를 일부 추가하고 싶다면, Reac로 다시 작성할 필요가 없습니다.
+- 기존 스택에 React를 추가하고 상호작용할 수 있는 React 컴포넌트를 어디에서나 렌더링하세요.
+
+**Important**
+
+- 로컬 개발 환경에 Node.js를 설치해야합니다.
+- 온라인에서 [React](https://ko.react.dev/learn/installation#try-react)를 시도하거나 간단한 HTML에서 React를 사용할 수도 있지만, 현실적인 개발을 위해 사용하는 대부분의 자바스크립트 도구에는 Node.js가 필요합니다.
+
+### 기존 웹사이트의 하위 경로 전체에 React 사용하기
+
+1. [React 기반 프레임워크](https://ko.react.dev/learn/start-a-new-react-project) 중 하나를 사용하여 **앱의 React 부분을 빌드하세요.**
+2. 사용하는 프레임워크 설정에서 **`/some-app` 을 *기본 경로Base Path*로 명시하세요**. (이때, [Next.js](https://nextjs.org/docs/app/api-reference/config/next-config-js/basePath), [Gatsby](https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/path-prefix/)를 사용하세요!)
+3. **서버 또는 프록시를 구성**하여 `/some-app/` 하위의 모든 요청이 React 앱에서 처리되도록 하세요.
+
+### 기존 페이지의 일부분에 React 사용하기
+
+1. [JSX 구문](https://ko.react.dev/learn/writing-markup-with-jsx)을 사용할 수 있게 **자바스크립트 환경을 설정**하고, [`import`](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/import) / [`export`](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/export) 구문을 통해 코드를 모듈로 분리한 다음, [npm](https://www.npmjs.com/) 패키지 레지스트리에서 패키지(예시: React)를 사용하세요.
+2. 해당 페이지에서 원하는 위치에 **React 컴포넌트를 렌더링하세요.**
+
+### 1단계: 모듈 자바스크립트 환경 설정하기
+
+- **이미 애플리케이션이 `import` 문을 이용해 파일로 분리하고 있다면** 기존에 가지고 있는 설정을 이용해 보세요. JS 코드에서 `<div />`를 작성하면 문법 오류가 발생하는지 확인해 보세요. 문법 오류가 발생한다면 [Babel을 이용한 자바스크립트 코드 변환](https://babeljs.io/setup)이 필요할 수 있으며, JSX를 사용하려면 [Babel React 프리셋](https://babeljs.io/docs/babel-preset-react)을 활성화해야 할 수도 있습니다.
+- **애플리케이션이 자바스크립트 모듈을 컴파일하기 위한 기존 설정이 없다면,** [Vite](https://vite.dev/)를 이용하여 설정하세요. Vite 커뮤니티는 Rails, Django, Laravel을 포함한 [다양한 백엔드 프레임워크와의 통합](https://github.com/vitejs/awesome-vite#integrations-with-backends)을 지원하고 있습니다. 사용 중인 백엔드 프레임워크가 목록에 없다면 [가이드를 참고하여](https://vite.dev/guide/backend-integration.html) Vite 빌드를 백엔드와 수동으로 통합하세요.
+
+```jsx
+import { createRoot } from 'react-dom/client';
+
+// 기존 HTML 컨텐츠를 지웁니다.
+document.body.innerHTML = '<div id="app"></div>';
+
+// 대신에 여러분이 작성한 React 컴포넌트를 렌더링합니다.
+const root = createRoot(document.getElementById('app'));
+root.render(<h1>Hello, world</h1>);
+
+```
+### 12주차(2025.05.22)
 
 ### 설치하기(상급 난이도)
 
