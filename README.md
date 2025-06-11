@@ -1,5 +1,23 @@
 # 202130103 김민서
-### 13주차(2025.05.29)
+# 14주차(2025.06.05)
+### 2단계 : 페이지 어디에서든 React 컴포넌트 랜더링하기
+
+### 설정하기
+- 에디터 설정하기
+  - https://ko.react.dev/learn/editor-setup
+- 타입스크립트 사용하기
+  - https://ko.react.dev/learn/typescript
+- React 개발자 도구
+  - https://ko.react.dev/learn/react-developer-tools
+- React 컴파일러
+  - https://ko.react.dev/learn/react-compiler
+
+### GitHub pages 기본 저장소란?
+1. Github 본인 계정으로 로그인 후 초록색 New 버튼을 클릭하고 기본 Repository를 생성한다.(구조= {본인github_id}.github.io)
+2. 저장소를 생성하면 간단한 **create a new file**을 클릭하여 **index.html**을 만든다.
+3. 1번에 설명한 **구조(URL)**을 주소창에 입력하게 되면 commit 해놓은 index.html 파일이 보여진다.
+
+# 13주차(2025.05.29)
 ### 처음부터 React 앱 만들기
 
 - 앱의 기존 프레임워크로는 충족하기 어려운 제약조건이 있는 경우
@@ -90,7 +108,7 @@ const root = createRoot(document.getElementById('app'));
 root.render(<h1>Hello, world</h1>);
 
 ```
-### 12주차(2025.05.22)
+# 12주차(2025.05.22)
 
 ### 설치하기(상급 난이도)
 
@@ -213,7 +231,7 @@ npm install --save-dev parcel
     
     answer : No. create React App은 더 이상 사용되지 않습니다.
     
-### 11주차(2025.05.13)
+# 11주차(2025.05.13)
 <h4>Step3 : React로 정적인 버전 구현하기</h4>
 
 - 정적인 데이터 :  훅, State로 관리 하는 것
@@ -246,7 +264,7 @@ npm install --save-dev parcel
 - 사용자의 입력을 반영할 수 있도록 state를 업데이트하기를 원한다.
 - state 변경을 위해서는 setFilterText와 setInstockOnly를 호출
 
-### 10주차(2025.05.08)
+# 10주차(2025.05.08)
 - 빠르게 시작하기는 깊이는 깊지 않지만 React의 80% 정도를 다룬다. 빠르게 시작하기 다음 챕터 틱택톡 게임은 앞에 나온 내용들을 복습 및 응용을 하여 틱택톡 게임을 만든다.
 - 오늘 학습할 React 사고하기는 중급 정도의 난이도 이고 앞으로의 내용들은 중, 상급 정도로 앞에 배운 내용들을 깊이있게 배운다.
 ### 우리는 왜? 컴퓨터가 필요한 시대에 살게 되었는가?
@@ -313,7 +331,7 @@ npm install --save-dev parcel
 3. 컴포넌트 안의 다른 State나 props를 가지고 계산 가능한가요? 그러면 확실히 state가 아닙니다.
 4. 이 외 남는 건 아마 state일 겁니다.
 
-### 8주차(2025.04.18/5.1일 근로자의 날 보강)
+# 8주차(2025.04.18/5.1일 근로자의 날 보강)
 ### 한번 더 state 끌어올리기
 - 다음 플레이어와 플레이 기록을 추적하기 위해 Game 컴포너느에 몇개의 state를 추가하세요.
 ```js
@@ -484,7 +502,7 @@ export default function Game() {
 ### 고급 : 목차에서 초급 중급을 재외한 것
 
 ### 중간고사 : React 프로젝트 생성, 컴포넌트 사용할 줄 알아야함
-### 7주차(2025.04.17)
+# 7주차(2025.04.17)
 ### state 끌어올리기
 - handClick 함수는 javascript의 slice() 배열 메서드를 사용하여 squares 배열 메서드를 사용하여 squares 배열의 사본인 nextSquares 생성합니다.
 - 그 다음 handleClick 함수는 nextSquares 배열의 첫 번째 Squares(index [0])에 X를 추가하여 업데이트 
@@ -585,7 +603,7 @@ function calculateWinner(squares) {
 - 구조 분해 할당은 배열이아 객체의 구조를 해체하여 내부 값을 개별 변수에 쉽게 할당하는 변수 입니다.
 ### 승자 결정하기 -1
 
- ### 6주차
+ # 6주차
  ### props를 통해 데이터 전달하기
  - React의 componet architecture 사용해서 재사용할 수 있는 component를 만들고 지저분하고 중복된 코드를 삭제
  - Board component를 만들고, Square component의 내용를 복사합니다
@@ -598,7 +616,7 @@ function calculateWinner(squares) {
  - 이 문제를 해결하기 위해서는 props를 사용하여 각 사각형이 가져야 할 값을 부모 component(Board)에서 자식 component(Square)로 전달 합니다.
  - component를 호출하는 쪽이 부모 component 입니다.
  
- ### ### props를 통해 데이터 전달하기2
+ ###  props를 통해 데이터 전달하기2
  - Square component를 value prop을 전달 받을 수 있도록 수정합니다.
  ``` 
  function Square({ value }) {
@@ -611,7 +629,7 @@ function calculateWinner(squares) {
 
  ### component 분리하기
 
- ### 5주차 
+ # 5주차 
  ### 화면 업데이트 하기
  - useState로부터 현재의 state를 저장할 수 있는 변수이니 count와 이를 업데이트 할 수 있는 SetCount를 얻을 수 있습니다.
  ### Hoook 사용하기
@@ -639,7 +657,7 @@ function calculateWinner(squares) {
 ### 보드 만들기
 - fragment Tag나 division Tag를 사용해서 wrapping 해 주기
 - bu
-## 2025.03.27 4주차(실습 시작)
+# 2025.03.27 4주차(실습 시작)
 
 ### 오늘의 학습 내용
 
@@ -699,11 +717,7 @@ function Mybutton(){
 
 - React에서 조건문을 작성하는 데에는 특별한 문법이 필요 없습니다. 일반적인 자바스크립트 코드를 작성할 때 사용하는 것과 동일한 방법을 사용합니다.
 
-## 2025.03.20 3주차
-
-## React 의존성 관리
-
-## 2025.03.20 3주차
+# 2025.03.20 3주차
 
 ## React 의존성 관리
 - src/ - 프로젝트 주요 코드가 위치하는 디렉토리
@@ -727,46 +741,6 @@ function Mybutton(){
 
 3. 패키지 재설치
    (npm install)
-
-## 3장
-
-- React는 component 단위로 개발하여 레고를 조립하듯이 앱을 완성
-- React component가 어떻게 웹페이지로 바뀌는지 중점으로 보는 것이 좋다.
-
-### 3.2
-
-### Component를 사용한 유저 인터페이스 생성
-
-- JSX는 React를 통해 대중화된 JavaScript 확장문법이다.
-
-### 필요한 곳에 상호작용 기능 추가
-
-- React component는 데이터를 수신
-- 사용자의 입력을 받아 새로운 데이터를 component에 전달
-
-### 5. full-stack App 개발을 도와주는 React Framewrork
-
-- React로 전체 앱을 빌드하려면 Next.js 또는 Remix와 같은 full-stack React Framework을 사용하느 것이 좋습니다.
-
-### 6. 모든 플랫폼에서 최고의 성능을 발휘하는 React
-
-- 웹 앱과 네이티브 앱을 모두 구축할 수 있다.
-- 웹의 본질
-  - 서버에서 데이터를 가져오는 동안에도 HTML을 스트리밍을 시작할수 있다.
-  - JavaScript 코드가 로드되기 전에 콘텐츠르르 점진적으로 채울수 있다.
-  - 클라이언트 측에서는 표준 웹 API를 사용해서, 랜더링 도중에도 UI를 반응하도록 할 수 있습니다.
-
-=======
-## 의존성 관리와 pakage.json
-- pakage.json 패키지의 의존성을 관리하는 파일이다.
-## node module의 재설치
-1. node modules 폴더와 packge-lock.json 파일 삭제하기 (bash : rm -rf node modules pakage-lock.json)
-2. npm 패키지의 임시 저장소인 cashe를 초기화 하기
-- force 옵션으로 강제 삭제 (npm cacje clean --force)
-** 일반적으로 캐시 정리x, 단 의존성 문제가 계속 된다면 실행하는 것이 좋다.
-3. 패키지 재설치
-(npm install)
-
 ## 3장
 - React는 component 단위로 개발하여 레고를 조립하듯이 앱을 완성
 - React component가 어떻게 웹페이지로 바뀌는지 중점으로 보는 것이 좋다.
@@ -808,5 +782,4 @@ React 공식 사이트에서 기초로 사용
 <<<<<<< HEAD
 react는 codesandbox.io에서 이해를 도와줌,
 =======
-react는 codesandbox.io에서 이해를 도와줌, 
 
